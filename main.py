@@ -5,10 +5,8 @@ import snake
 import food
 import sound
 import score
-
 pg.font.init()
 tool, ertefa = 1500, 1000
-
 toolindex = tool // 20
 ertefaindex = ertefa // 20
 pixel = 20
@@ -33,7 +31,6 @@ def bazi_ra_start_kon():
     return s, f, xeghaza, yeghaza
 
 s, f, xeghaza, yeghaza = bazi_ra_start_kon()
-# score.emtiaz(0)
 edame = True
 sound.sedakoll()
 emtiaz = 0
@@ -82,7 +79,7 @@ while edame:
                             s, f, xeghaza, yeghaza = bazi_ra_start_kon()
                             restart_clicked = True
                             kilic_ebteda = False
-                            score.emtiaz(0)
+                            emtiaz = score.to_sefr()
                 clock.tick(10)
             
             continue
@@ -93,7 +90,6 @@ while edame:
             sound.khordan()
             bool = True
             emtiaz = score.emtiaz()
-            # sound.tavagof()
         safhe.fill(rangesafhe)
         s.drawsnake(bool)
         f.keshidanghaza()
