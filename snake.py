@@ -46,6 +46,7 @@ class mar:
     def barresi(self):
         if(self.xemar > self.xavval or self.xemar < 0 or self.yemar > self.yavval or self.yemar < 5):
             return False
+            
         elif self.xemar > 0:
             for i in self.harakatha:
                 if(self.harakatha.count(i) >= 2):

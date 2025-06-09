@@ -19,7 +19,7 @@ sizemar = 20
 conn = sqlite3.connect('mydatabase.db')
 cursor = conn.cursor()
 
-font = pg.font.Font("font/LiberationSans-Bold.ttf", 80)
+font = pg.font.Font("font/LiberationSans-Bold.ttf", 40)
 clock = pg.time.Clock()
 
 dokmerestatrt = pg.Rect(tool // 2 - 130, ertefa // 2 + 40, 300, 80)
@@ -63,16 +63,10 @@ while edame:
             pg.draw.rect(safhe, (0, 100, 255), dokmerestatrt)
             label = font.render("Restart", True, (255, 255, 255))
             label_rect = label.get_rect(center=dokmerestatrt.center)
-            cursor.execute('''
-                        INSERT INTO scores (scores)
-                        VALUES (?)
-                    ''', (emtiaz, ))
-            cursor.execute('SELECT * FROM scores')
-            rows = cursor.fetchall()
-            label1 = font.render(f'best score is: {max(rows)}', True, (255, 255, 255))
-            safhe.blit(label1, (450, 300))
+            
+            
             conn.commit()
-            conn.close()
+            
             safhe.blit(label, label_rect)
             pg.display.flip()
 
@@ -90,6 +84,7 @@ while edame:
                             kilic_ebteda = False
                             score.emtiaz(0)
                 clock.tick(10)
+            
             continue
 
         s.harakat()
@@ -105,8 +100,17 @@ while edame:
         pg.draw.rect(safhe, (0, 0, 128), (0, 0, tool, 100))
         matne_emtiaz = font.render(f"Score: {emtiaz}", True, (255, 255, 255))
         safhe.blit(matne_emtiaz, (10, 5))
+        cursor.execute('''
+                        INSERT INTO scores (scores)
+                        VALUES (?)
+                    ''', (emtiaz, ))
+        cursor.execute('SELECT * FROM scores')
+        rows = cursor.fetchall()
+        label1 = font.render(f'best score is: {max(rows)}', True, (255, 255, 255))
+        safhe.blit(label1, (300, 5))
         pg.display.flip()
         clock.tick(sakhti)
+        # kilic_ebteda = False
     else:
         safhe.fill((0, 0, 0))
         matn = font.render("Select Difficulty", True, (255, 255, 255))
@@ -124,7 +128,7 @@ while edame:
         safhe.blit(label_motavaset, label_motavaset.get_rect(center=dokmeh_motavaset.center))
         safhe.blit(label_sakht, label_sakht.get_rect(center=dokmeh_sakht.center))
 
-        pg.display.flip()
+        
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -138,6 +142,8 @@ while edame:
                     sakhti = 15
                 elif dokmeh_sakht.collidepoint(event.pos):
                    sakhti = 20
+        pg.display.flip()
+conn.close()
 sound.tavagof()
 pg.quit()
 sys.exit()
