@@ -6,3 +6,8 @@ def sedakoll():
     pg.mixer.music.play(-1)
 def tavagof():
     pg.mixer.music.stop()
+def khordan():
+    # pg.mixer.init()
+    sound = pg.mixer.Sound('music/eat.mp3')
+    sound.set_volume(0.5)         # میزان صدا بین 0.0 تا 1.0
+    sound.play()

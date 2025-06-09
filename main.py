@@ -5,6 +5,7 @@ import snake
 import food
 import sound
 import score
+
 pg.font.init()
 tool, ertefa = 1500, 1000
 
@@ -94,9 +95,10 @@ while edame:
         s.harakat()
         if s.mokhtassat() == (xeghaza, yeghaza):
             xeghaza, yeghaza = f.toolidtasadofi()
+            sound.khordan()
             bool = True
             emtiaz = score.emtiaz()
-
+            # sound.tavagof()
         safhe.fill(rangesafhe)
         s.drawsnake(bool)
         f.keshidanghaza()
