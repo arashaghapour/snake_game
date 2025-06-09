@@ -14,9 +14,9 @@ safhe = pg.display.set_mode((tool, ertefa))
 pg.display.set_caption('snake game')
 rangesafhe = (0, 0, 0)
 sizemar = 20
-conn = sqlite3.connect('mydatabase.db')
+conn = sqlite3.connect('my_database.db')
 cursor = conn.cursor()
-
+list1 = []
 font = pg.font.Font("font/LiberationSans-Bold.ttf", 40)
 clock = pg.time.Clock()
 
@@ -61,7 +61,10 @@ while edame:
             label = font.render("Restart", True, (255, 255, 255))
             label_rect = label.get_rect(center=dokmerestatrt.center)
             
-            
+            cursor.execute('''
+                            INSERT INTO scores (scores)
+                            VALUES (?)
+                        ''', (emtiaz, ))
             conn.commit()
             
             safhe.blit(label, label_rect)
@@ -79,6 +82,8 @@ while edame:
                             s, f, xeghaza, yeghaza = bazi_ra_start_kon()
                             restart_clicked = True
                             kilic_ebteda = False
+                            
+                            
                             emtiaz = score.to_sefr()
                 clock.tick(10)
             
@@ -96,14 +101,12 @@ while edame:
         pg.draw.rect(safhe, (0, 0, 128), (0, 0, tool, 100))
         matne_emtiaz = font.render(f"Score: {emtiaz}", True, (255, 255, 255))
         safhe.blit(matne_emtiaz, (10, 5))
-        cursor.execute('''
-                        INSERT INTO scores (scores)
-                        VALUES (?)
-                    ''', (emtiaz, ))
+        
         cursor.execute('SELECT * FROM scores')
         rows = cursor.fetchall()
-        label1 = font.render(f'best score is: {max(rows)}', True, (255, 255, 255))
-        safhe.blit(label1, (300, 5))
+        if(rows):
+            label1 = font.render(f'best score is: {max(rows)[0]}', True, (255, 255, 255))
+            safhe.blit(label1, (300, 5))
         pg.display.flip()
         clock.tick(sakhti)
         # kilic_ebteda = False
@@ -139,6 +142,8 @@ while edame:
                 elif dokmeh_sakht.collidepoint(event.pos):
                    sakhti = 20
         pg.display.flip()
+
+
 conn.close()
 sound.tavagof()
 pg.quit()

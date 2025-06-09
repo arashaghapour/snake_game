@@ -26,25 +26,46 @@ class mar:
                 
         pg.draw.rect(self.safhe, self.rang, (self.xemar * self.size, self.yemar * self.size, self.size, self.size))
     def harakat(self):
-        if(self.samt == 'L'):            
-            self.xemar -= 1
+        if(self.samt == 'L'):    
+            if(len(self.harakatha) >= 2):
+                if(self.harakatha[0][0] > self.harakatha[1][0]):
+                    self.xemar += 1
+                else:
+                    self.xemar -= 1   
+            else:     
+                self.xemar -= 1
     
         elif(self.samt == 'R'):
-            self.xemar += 1
-           
+            if(len(self.harakatha) >= 2):
+                if(self.harakatha[0][0] < self.harakatha[1][0]):
+                    self.xemar -= 1
+                else:
+                    self.xemar += 1   
+            else:     
+                self.xemar += 1          
         elif(self.samt == 'U'):
-            self.yemar -= 1  
-                      
+            if(len(self.harakatha) >= 2):
+                if(self.harakatha[0][1] > self.harakatha[1][1]):
+                    self.yemar += 1
+                else:
+                    self.yemar -= 1   
+            else:     
+                self.yemar -= 1 
         elif(self.samt == 'D'):
-            self.yemar += 1 
-                      
+            if(len(self.harakatha) >= 2):
+                if(self.harakatha[0][1] < self.harakatha[1][1]):
+                    self.yemar -= 1
+                else:
+                    self.yemar += 1   
+            else:     
+                self.yemar += 1
     def jahat(self, jahat1):
         self.samt = jahat1
         
     def mokhtassat(self):
         return self.xemar, self.yemar
     def barresi(self):
-        if(self.xemar > self.xavval or self.xemar < 0 or self.yemar > self.yavval or self.yemar < 5):
+        if(self.xemar > self.xavval - 1 or self.xemar < 0 or self.yemar > self.yavval - 3 or self.yemar < 6):
             return False
             
         elif self.xemar > 0:
