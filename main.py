@@ -89,7 +89,7 @@ while edame:
                             kilic_ebteda = False
                             score.emtiaz(0)
                 clock.tick(10)
-            continue 
+            continue
 
         s.harakat()
         if s.mokhtassat() == (xeghaza, yeghaza):
